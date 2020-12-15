@@ -4,7 +4,7 @@
 #
 Name     : dlib
 Version  : 19.19
-Release  : 3
+Release  : 4
 URL      : https://github.com/davisking/dlib/archive/v19.19.tar.gz
 Source0  : https://github.com/davisking/dlib/archive/v19.19.tar.gz
 Summary  : A general purpose cross-platform C++ library designed using contract programming and modern C++ techniques
