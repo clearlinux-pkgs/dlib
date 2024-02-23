@@ -7,14 +7,16 @@
 #
 Name     : dlib
 Version  : 19.24.2
-Release  : 5
+Release  : 6
 URL      : https://github.com/davisking/dlib/archive/v19.24.2/dlib-19.24.2.tar.gz
 Source0  : https://github.com/davisking/dlib/archive/v19.24.2/dlib-19.24.2.tar.gz
 Summary  : Numerical and networking C++ library
 Group    : Development/Tools
-License  : BSD-3-Clause BSL-1.0 Libpng
+License  : BSD-3-Clause BSL-1.0 CC-BY-4.0 Libpng
 Requires: dlib-lib = %{version}-%{release}
 Requires: dlib-license = %{version}-%{release}
+Requires: dlib-python = %{version}-%{release}
+Requires: dlib-python3 = %{version}-%{release}
 BuildRequires : buildreq-cmake
 BuildRequires : cmake
 BuildRequires : glibc-dev
@@ -34,6 +36,7 @@ BuildRequires : pkgconfig(libswresample)
 BuildRequires : pkgconfig(libswscale)
 BuildRequires : pkgconfig(x11)
 BuildRequires : python3
+BuildRequires : python3-dev
 # Suppress stripping binaries
 %define __strip /bin/true
 %define debug_package %{nil}
@@ -71,6 +74,24 @@ Group: Default
 license components for the dlib package.
 
 
+%package python
+Summary: python components for the dlib package.
+Group: Default
+Requires: dlib-python3 = %{version}-%{release}
+
+%description python
+python components for the dlib package.
+
+
+%package python3
+Summary: python3 components for the dlib package.
+Group: Default
+Requires: python3-core
+
+%description python3
+python3 components for the dlib package.
+
+
 %prep
 %setup -q -n dlib-19.24.2
 cd %{_builddir}/dlib-19.24.2
@@ -80,7 +101,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1708706173
+export SOURCE_DATE_EPOCH=1708709844
 mkdir -p clr-build
 pushd clr-build
 export GCC_IGNORE_WERROR=1
@@ -117,13 +138,17 @@ FFLAGS="$CLEAR_INTERMEDIATE_FFLAGS"
 FCFLAGS="$CLEAR_INTERMEDIATE_FCFLAGS"
 ASFLAGS="$CLEAR_INTERMEDIATE_ASFLAGS"
 LDFLAGS="$CLEAR_INTERMEDIATE_LDFLAGS"
-export SOURCE_DATE_EPOCH=1708706173
+export SOURCE_DATE_EPOCH=1708709844
 rm -rf %{buildroot}
+## install_prepend content
+python3 -tt setup.py build  install --root=%{buildroot}
+## install_prepend end
 mkdir -p %{buildroot}/usr/share/package-licenses/dlib
 cp %{_builddir}/dlib-%{version}/LICENSE.txt %{buildroot}/usr/share/package-licenses/dlib/3f317fbb3e08fd99169d2e77105d562ea0e482c7 || :
 cp %{_builddir}/dlib-%{version}/dlib/LICENSE.txt %{buildroot}/usr/share/package-licenses/dlib/3f317fbb3e08fd99169d2e77105d562ea0e482c7 || :
 cp %{_builddir}/dlib-%{version}/dlib/external/libpng/LICENSE %{buildroot}/usr/share/package-licenses/dlib/f2aea45b40bb8015da30997e270ecd7631a6a14d || :
 cp %{_builddir}/dlib-%{version}/dlib/external/pybind11/LICENSE %{buildroot}/usr/share/package-licenses/dlib/3dbd61e2b2c71dcc658c3da90bacf2e15958075a || :
+cp %{_builddir}/dlib-%{version}/dlib/test/ffmpeg_data/LICENSE.TXT %{buildroot}/usr/share/package-licenses/dlib/e93bd9ee0c6c6a269b2655a8b87ca37b8165f30f || :
 cp %{_builddir}/dlib-%{version}/docs/docs/license.xml %{buildroot}/usr/share/package-licenses/dlib/f10827e319e8d557b9ea230fbea9846ee5e7c34d || :
 export GOAMD64=v2
 GOAMD64=v2
@@ -1214,5 +1239,13 @@ popd
 %defattr(0644,root,root,0755)
 /usr/share/package-licenses/dlib/3dbd61e2b2c71dcc658c3da90bacf2e15958075a
 /usr/share/package-licenses/dlib/3f317fbb3e08fd99169d2e77105d562ea0e482c7
+/usr/share/package-licenses/dlib/e93bd9ee0c6c6a269b2655a8b87ca37b8165f30f
 /usr/share/package-licenses/dlib/f10827e319e8d557b9ea230fbea9846ee5e7c34d
 /usr/share/package-licenses/dlib/f2aea45b40bb8015da30997e270ecd7631a6a14d
+
+%files python
+%defattr(-,root,root,-)
+
+%files python3
+%defattr(-,root,root,-)
+/usr/lib/python3*/*
