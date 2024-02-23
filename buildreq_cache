@@ -1,0 +1,9 @@
+19.24.2
+pkgconfig(libavcodec)
+pkgconfig(libavdevice)
+pkgconfig(libavfilter)
+pkgconfig(libavformat)
+pkgconfig(libavutil)
+pkgconfig(libswresample)
+pkgconfig(libswscale)
+pkgconfig(x11)
