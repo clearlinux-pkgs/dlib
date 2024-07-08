@@ -1,2 +1,3 @@
 Cannot resolve dependency name: pkgconfig(libjxl)
 Cannot resolve dependency name: pkgconfig(libjxl_cms)
+Cannot resolve dependency name: pkgconfig(libjxl_threads)
