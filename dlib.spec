@@ -7,7 +7,7 @@
 #
 Name     : dlib
 Version  : 19.24.2
-Release  : 6
+Release  : 7
 URL      : https://github.com/davisking/dlib/archive/v19.24.2/dlib-19.24.2.tar.gz
 Source0  : https://github.com/davisking/dlib/archive/v19.24.2/dlib-19.24.2.tar.gz
 Summary  : Numerical and networking C++ library
